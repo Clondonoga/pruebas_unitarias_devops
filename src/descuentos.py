@@ -14,6 +14,7 @@ def aplicar_descuento(precio, porcentaje):
     descuento = precio * (porcentaje / 100)
     return precio - descuento
 
+
 def calcular_descuento(precio, porcentaje):
     """Calcula el monto del descuento."""
     if precio < 0:
@@ -23,6 +24,7 @@ def calcular_descuento(precio, porcentaje):
         raise ValueError("El porcentaje debe estar entre 0 y 100")
 
     return precio * (porcentaje / 100)
+
 
 def calcular_precio_final(precio, impuesto, descuento):
     """Calcula el precio final con impuesto y descuento."""
@@ -39,11 +41,13 @@ def calcular_precio_final(precio, impuesto, descuento):
     precio_con_descuento = aplicar_descuento(precio, descuento)
 
     # Luego aplicar el impuesto
-    # BUG 1: El impuesto se aplica incorrectamente
-    impuesto_monto = precio * (impuesto / 100)
+    # CORREGIDO (BUG 1): El impuesto ahora se calcula sobre el precio con descuento,
+    # no sobre el precio original.
+    impuesto_monto = precio_con_descuento * (impuesto / 100)
     precio_final = precio_con_descuento + impuesto_monto
 
     return precio_final
+
 
 def descuento_por_volumen(cantidad, precio_unitario):
     """Calcula el precio con descuento por volumen."""
@@ -69,6 +73,7 @@ def descuento_por_volumen(cantidad, precio_unitario):
 
     return aplicar_descuento(subtotal, descuento * 100)
 
+
 def descuento_cumulativo(precio, descuentos):
     """Aplica múltiples descuentos de forma acumulativa."""
     if precio < 0:
@@ -86,6 +91,7 @@ def descuento_cumulativo(precio, descuentos):
 
     return precio_actual
 
+
 def descuento_apilado(precio, descuentos):
     """Aplica múltiples descuentos de forma apilada (sumando porcentajes)."""
     if precio < 0:
@@ -97,5 +103,10 @@ def descuento_apilado(precio, descuentos):
     # Sumar todos los descuentos
     total_descuento = sum(descuentos)
 
-    # BUG 2: El descuento total puede exceder el 100%
+    # CORREGIDO (BUG 2): Si la suma de descuentos supera el 100%, 
+    # se topa en 100% para evitar que la función arroje un error inesperado 
+    # y para que el precio final mínimo sea 0.
+    if total_descuento > 100:
+        total_descuento = 100
+        
     return aplicar_descuento(precio, total_descuento)
