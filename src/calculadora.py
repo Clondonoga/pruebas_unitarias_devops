@@ -2,6 +2,7 @@
 Módulo de calculadora con funciones matemáticas básicas.
 ATENCIÓN: Hay 2 bugs ocultos en este archivo.
 """
+import math
 
 def sumar(a, b):
     """Suma dos números."""
@@ -27,8 +28,10 @@ def potencia(base, exponente):
 
 def raiz_cuadrada(numero):
     """Calcula la raíz cuadrada de un número."""
-    # BUG 1: No maneja números negativos
-    return numero ** 0.5
+    # CORREGIDO (BUG 1): Se valida que el número no sea negativo
+    if numero < 0:
+        raise ValueError("No se puede calcular la raíz cuadrada de un número negativo")
+    return math.sqrt(numero) # O usar numero ** 0.5
 
 def promedio(lista):
     """Calcula el promedio de una lista de números."""
@@ -50,8 +53,8 @@ def minimo(lista):
     """Encuentra el número mínimo de una lista."""
     if not lista:
         raise ValueError("La lista no puede estar vacía")
-    # BUG 2: No maneja correctamente la comparación inicial
-    min_val = 0
+    # CORREGIDO (BUG 2): Se inicializa con el primer elemento de la lista
+    min_val = lista[0]
     for num in lista:
         if num < min_val:
             min_val = num
