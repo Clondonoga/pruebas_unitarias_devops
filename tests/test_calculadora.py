@@ -69,3 +69,30 @@ def test_area_rectangulo_negativo_lanza_error():
 
 def test_perimetro_rectangulo():
     assert calcular_perimetro_rectangulo(5, 4) == 18
+# ==========================================
+# Pruebas adicionales para llegar al 100%
+# ==========================================
+def test_restar_positivos():
+    assert restar(10, 4) == 6
+
+def test_multiplicar_positivos():
+    assert multiplicar(6, 7) == 42
+
+def test_potencia_exponente_cero():
+    assert potencia(5, 0) == 1
+
+def test_maximo_lista_vacia_lanza_error():
+    with pytest.raises(ValueError):
+        maximo([])
+
+def test_minimo_lista_vacia_lanza_error():
+    with pytest.raises(ValueError):
+        minimo([])
+
+def test_area_rectangulo_negativo_lanza_error():
+    with pytest.raises(ValueError):
+        calcular_area_rectangulo(-5, 4)
+
+def test_perimetro_rectangulo_negativo_lanza_error():
+    with pytest.raises(ValueError):
+        calcular_perimetro_rectangulo(5, -4)
